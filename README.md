@@ -10,11 +10,15 @@ Ce projet est un générateur de cartes d'identité fictives utilisant des micro
 - **Génération de Prénoms et Noms** : Génère des prénoms et noms aléatoires.
 - **Détermination du Genre** : Détermine le genre à partir du prénom.
 - **Détermination de la Nationalité** : Détermine la nationalité à partir du prénom.
+- **Lieu de naissance** : Génère un lieu de naissance en fonction de la nationalité.
+- **Génération de l'age** : Génère un age en fonction du prénom et de la nationalité.
 - **Génération d'Informations Complémentaires** :
-  - **Lieu de naissance** : Génère un lieu de naissance en fonction de la nationalité.
   - **ID Unique** : Génère un identifiant unique en utilisant des algorithmes de génération d'UUID.
 - **Génération de Visages** : Génère une image de visage à partir des informations fournies.
 - **Mises en forme** : Met en forme les informations sous forme de carte d'identité "fictives"
+
+## Architecture globale
+
 
 ## Microservices
 
@@ -32,6 +36,7 @@ Ce projet est un générateur de cartes d'identité fictives utilisant des micro
 
 ### Service de Génération d'un lieu de naissance
 - **Description** : Génère le lieu de naissance (ville) en fonction de la nationalité grace à une API.
+- **API Externe** : Utilisation de `GeoDB Cities`.
 
 ### Service de Génération d'ID Unique
 - **Description** : Ce service génère un identifiant unique en utilisant des algorithmes de génération d'UUID.
@@ -40,6 +45,12 @@ Ce projet est un générateur de cartes d'identité fictives utilisant des micro
 ### Service de Génération de Visages
 - **Description** : Ce service génère une image de visage à partir des informations fournies (nom, genre, nationalité).
 - **API Externe** : Utilisation de `Generated Photos` ou une API similaire.
+
+### Service de Génération de l'Age
+- **Description** : Génère un age en fonction du prénom et de la nationalité.
+- **API Externe** : Utilisation de `Agify.io` ou une API similaire.
+  
+## Interaction entre les Microservices
 
 ## Middleware
 
