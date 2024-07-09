@@ -18,7 +18,7 @@ Ce projet est un générateur de cartes d'identité fictives utilisant des micro
 - **Mises en forme** : Met en forme les informations sous forme de carte d'identité "fictives"
 
 ## Architecture globale
-![image](https://github.com/Oceane4973/Middleware_project/blob/docs/docs/images/architecture.png?raw=true)
+![image](https://github.com/Oceane4973/Middleware_project/blob/docs/docs/images/architecture-en.png?raw=true)
 
 ## Microservices
 
@@ -51,7 +51,7 @@ Ce projet est un générateur de cartes d'identité fictives utilisant des micro
 - **API Externe** : Utilisation de `Agify.io` ou une API similaire.
   
 ## Interaction entre les Microservices
-![image](https://github.com/Oceane4973/Middleware_project/blob/docs/docs/images/microservices_interaction.png?raw=true)
+![image](https://github.com/Oceane4973/Middleware_project/blob/docs/docs/images/microservices_interaction-en.png?raw=true)
 
 ## Middleware
 
