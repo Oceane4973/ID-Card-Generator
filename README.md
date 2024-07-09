@@ -11,8 +11,7 @@ Ce projet est un générateur de cartes d'identité fictives utilisant des micro
 - **Détermination du Genre** : Détermine le genre à partir du prénom.
 - **Détermination de la Nationalité** : Détermine la nationalité à partir du prénom.
 - **Génération d'Informations Complémentaires** :
-  - **Adresse** : Génère une adresse réaliste incluant une ville, une rue et un code postal valides.
-  - **Numéro de Téléphone** : Génère un numéro de téléphone au format correct en fonction de la nationalité.
+  - **Lieu de naissance** : Génère un lieu de naissance en fonction de la nationalité.
   - **ID Unique** : Génère un identifiant unique en utilisant des algorithmes de génération d'UUID.
 - **Génération de Visages** : Génère une image de visage à partir des informations fournies.
 - **Mises en forme** : Met en forme les informations sous forme de carte d'identité "fictives"
@@ -31,13 +30,8 @@ Ce projet est un générateur de cartes d'identité fictives utilisant des micro
 - **Description** : Ce service détermine la nationalité à partir du prénom en utilisant des API externes.
 - **API Externe** : Utilisation de `Nationalize.io`.
 
-### Service de Génération d'Adresse
-- **Description** : Ce service génère une adresse réaliste incluant une ville, une rue et un code postal valides.
-- **Base de Données (facultatif)** : Utilisation d'une base de données contenant des listes de villes, rues et codes postaux par pays.
-
-### Service de Génération de Numéro de Téléphone
-- **Description** : Ce service génère un numéro de téléphone au format correct en fonction de la nationalité.
-- **Base de Données (facultatif)** : Utilisation d'une base de données contenant les formats de numéros de téléphone par pays.
+### Service de Génération d'un lieu de naissance
+- **Description** : Génère le lieu de naissance (ville) en fonction de la nationalité grace à une API.
 
 ### Service de Génération d'ID Unique
 - **Description** : Ce service génère un identifiant unique en utilisant des algorithmes de génération d'UUID.
@@ -82,13 +76,6 @@ Le middleware sert de couche intermédiaire entre le front-end et les différent
 
 -   **Architecture** : Express.js
     -   **Raisons** : Facilite la création de middlewares et d'API REST, permet une intégration facile avec d'autres services et microservices.
-
-#### Base de Données
-
--   **SGBD** : MongoDB
-    -   **Raisons** : Flexible et évolutif, adapté aux données non structurées et semi-structurées, bon support pour les opérations de haute performance.
-    -   **ORM** : Mongoose
-        -   **Raisons** : Simplifie les interactions avec MongoDB, fournit un schéma strict pour les collections, et facilite la validation et la transformation des données.
 
 #### Testing
 
