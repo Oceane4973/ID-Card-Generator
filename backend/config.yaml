@@ -1,0 +1,37 @@
+version: '1.0'
+
+services:
+  name-service:
+    path: /services/nameServices
+    start_command: "npm start"
+    description: "Service de génération de prénoms et noms"
+
+  gender-service:
+    path: /services/genderServices
+    start_command: "npm start"
+    description: "Service de détermination du genre"
+
+  nationality-service:
+    path: /services/nationalityServices
+    start_command: "npm start"
+    description: "Service de détermination de la nationalité"
+
+  birth-place-service:
+    path: /services/birthPlaceServices
+    start_command: "npm start"
+    description: "Service de génération d'un lieu de naissance"
+
+  age-service:
+    path: /services/ageServices
+    start_command: "npm start"
+    description: "Service de génération d'âge"
+
+  unique-id-service:
+    path: /services/uniqueIDServices
+    start_command: "npm start"
+    description: "Service de génération d'ID unique"
+
+  face-generation-service:
+    path: /services/faceServices
+    start_command: "npm start"
+    description: "Service de génération de visages"

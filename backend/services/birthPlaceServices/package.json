@@ -1,0 +1,17 @@
+{
+  "name": "birthplaceservices",
+  "version": "1.0.0",
+  "description": "Service de génération de lieu de naissance'",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
