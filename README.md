@@ -33,6 +33,8 @@ This project is a fictitious identity documents using microservices and API to g
 - **Face generation** : Generate a human face according to previous data.
 - **Formatting** : Gather all previous data and put them all on a "fictitious" identity document.
 
+## Architecture globale
+![image](https://github.com/Oceane4973/Middleware_project/blob/docs/docs/images/architecture-en.png?raw=true)
 
 ## Microservices
 
@@ -108,6 +110,7 @@ This project is a fictitious identity documents using microservices and API to g
 - **API Externe** : Utilisation de `Agify.io` ou une API similaire.
   
 ## Interaction entre les Microservices
+![image](https://github.com/Oceane4973/Middleware_project/blob/docs/docs/images/microservices_interaction-en.png?raw=true)
 
 ## Middleware
 `FR :`
