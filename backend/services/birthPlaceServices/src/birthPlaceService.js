@@ -11,4 +11,5 @@ app.get('/birthPlaceService/api/birthPlace', async (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`birth Place Service is running on port ${PORT}`);
+    console.log(`On localhost, you can click on this link : http://localhost:${PORT}/birthPlaceService/api/birthPlace`);
 });

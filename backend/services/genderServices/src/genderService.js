@@ -5,10 +5,11 @@ const app = express();
 
 const PORT = process.env.PORT || 5004;
 
-app.get('genderService/api/gender', async (req, res) => {
+app.get('/genderService/api/gender', async (req, res) => {
     res.json({ gender : "male"});
 });
 
 app.listen(PORT, () => {
     console.log(`Gender Service is running on port ${PORT}`);
+    console.log(`On localhost, you can click on this link : http://localhost:${PORT}/genderService/api/gender`);
 });
