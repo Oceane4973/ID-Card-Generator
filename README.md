@@ -22,7 +22,6 @@ This project is a fictitious identity documents using microservices and API to g
 - **Génération de Visages** : Génère une image de visage à partir des informations fournies.
 - **Mises en forme** : Met en forme les informations sous forme de carte d'identité "fictives"
 
-<<<<<<< HEAD
 `ENG :`
 - **Name and surname generation** : Generate random name and surname.
 - **Guessing the gender** : Guess the person's gender using their name.
@@ -36,11 +35,10 @@ This project is a fictitious identity documents using microservices and API to g
 
 ## Architecture globale/Global architecture
 
-![image](https://github.com/Oceane4973/Middleware_project/blob/docs/docs/images/architecture.png?raw=true)
-=======
-## Architecture globale
-![image](https://github.com/Oceane4973/Middleware_project/blob/docs/docs/images/architecture-en.png?raw=true)
->>>>>>> 12d9061 (Update README.md)
+`FR :`
+![French version - Global architecture](./docs/images/architecture-fr.png)
+`ENG :`
+![English version - Global architecture](./docs/images/architecture-en.png)
 
 ## Microservices
 
@@ -116,7 +114,10 @@ This project is a fictitious identity documents using microservices and API to g
 - **API Externe** : Utilisation de `Agify.io` ou une API similaire.
   
 ## Interaction entre les Microservices/Interaction between microservices
-![image](https://github.com/Oceane4973/Middleware_project/blob/docs/docs/images/microservices_interaction.png?raw=true)
+`FR :`
+![French version - Interaction between microservices](./docs/images/microservices_interaction-fr.png)
+`ENG :`
+![English version - Interaction between microservices](./docs/images/microservices_interaction-en.png)
 
 ## Middleware
 `FR :`
