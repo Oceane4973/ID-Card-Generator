@@ -1,0 +1,20 @@
+.identity-card {
+	position: relative;
+	padding: 20px 50px;
+	width: 600px;
+	margin: 20px auto;
+	border-radius: 15px;
+	box-shadow: 20px 20px 75px rgba(0, 0, 0, 0.5);
+	-webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px);
+    background-color: rgba(255, 255, 255, 0.2);  
+	border: 1px solid #ccc;
+}
+
+h1{
+	margin: 0;
+	color: white;
+	text-shadow: #000 0 0 1px;
+	font-family: sans-serif;
+	font-size: 3rem;
+}
