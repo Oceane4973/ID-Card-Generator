@@ -9,7 +9,7 @@ swagger: '2.0'
  basePath: '/v1'
  schemes:
    - 'https'
-   - http'
+   - 'http'
 
  paths:
    /generate-id/simple:
