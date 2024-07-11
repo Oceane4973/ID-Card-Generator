@@ -324,12 +324,12 @@ swagger: '2.0'
        parameters:
          - name : 'prénom'
            in : 'query'
-           description : "Prénom utilisé pour générer le profil complet
+           description : 'First name used to generate full profile'
            required : true
            type : 'string'
        responses :
          200 :
-           description : 'Profil complet généré basé sur le prénom fourni'
+           description : 'Full profile generated based on first name provided'
            schema :
              type : 'object'
              properties :
@@ -347,9 +347,9 @@ swagger: '2.0'
                  exemple : 'male'
                nationalité :
                  type : 'string'
-                 exemple : "français
+                 exemple : 'french'
                lieu de naissance :
-                 type : "string
+                 type : 'string'
                  exemple : 'Paris'
                âge :
                  type : 'integer'
@@ -360,19 +360,19 @@ swagger: '2.0'
 
    /generate-full-profile-by-nationality :
      obtenir :
-       summary : "Génère un profil complet basé sur une nationalité donnée
+       summary : 'Generates a complete profile based on a given nationality'
        operationId : 'generateFullProfileByNationality'
        produces :
          - 'application/json'
        parameters :
-         - name : "nationality
+         - name : 'nationality'
            in : 'query'
-           description : "Nationalité utilisée pour générer le profil complet
+           description : 'Nationality used to generate the full profile'
            required : true
            type : 'string'
        responses :
          200 :
-           description : 'Profil complet généré basé sur la nationalité fournie'
+           description : 'Full profile generated based on nationality supplied'
            schema :
              type : 'object'
              propriétés :
@@ -390,9 +390,9 @@ swagger: '2.0'
                  exemple : 'male'
                nationalité :
                  type : 'string'
-                 exemple : "français
+                 exemple : 'français'
                lieu de naissance :
-                 type : "string
+                 type : 'string'
                  exemple : 'Paris'
                âge :
                  type : 'integer'
@@ -412,11 +412,11 @@ swagger: '2.0'
          type : 'integer'
          format : 'int32'
        message :
-         type : "string
+         type : 'string'
 
  securityDefinitions :
    ApiKeyAuth :
-     type : "apiKey
+     type : 'apiKey'
      in : "header" (en-tête)
      name : "Authorization" (autorisation)
 
