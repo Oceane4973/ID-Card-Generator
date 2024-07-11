@@ -1,7 +1,7 @@
 swagger: '2.0'
  info:
    version: '1.0'
-   title: 'Fake ID Generator - Middlware API
+   title: 'Fake ID Generator - Middlware API'
    description: "Fake ID Generator is a mock ID generator that aims to provide a convenient and useful experience for a variety of applications, including role-playing game development and other projects requiring realistic identity data."
 
 
@@ -14,7 +14,7 @@ swagger: '2.0'
  paths:
    /generate-id/simple:
      get:
-       summary: 'Generate a simple ID
+       summary: 'Generate a simple ID'
        operationId: 'generateSimpleId'
        produces:
          - 'application/json'
