@@ -21,7 +21,8 @@ const IdentityInfo = ({
 				<strong>Gender : </strong>{gender}
 			</p>
 			<p>
-				<strong>Birth the </strong>{birthDate}<strong> at </strong>{birthPlace}
+				<strong>Birth the </strong>{birthDate}<br/>
+				<strong> at </strong>{birthPlace}
 			</p>
 			<p>
 				<strong>ID Card Number : </strong>{UUID}

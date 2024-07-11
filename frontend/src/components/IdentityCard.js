@@ -10,12 +10,12 @@ const IdentityCard = ({
 	birthPlace,
 	gender,
 	UUID,
+	photoUrl,
 }) => {
 	return (
 		<div className="identity-card">
 			<h1>Identity card</h1>
-			<IdentityPhoto
-			/>
+			<IdentityPhoto photoUrl={photoUrl} />
 			<IdentityInfo
 				firstName={firstName}
 				lastName={lastName}
