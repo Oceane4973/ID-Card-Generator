@@ -8,7 +8,7 @@ class AgeRoutes {
 
   initializeRoutes() {
     this.router.get('/random', this.generateRandomAge);
-    this.router.get('/createWithNameAndOrigin', this.generateAgeByNameOrigin);
+    this.router.get('/byNameAndOrigin', this.generateAgeByNameOrigin);
     this.router.get('/range', this.generateAgeByRange);
   }
 

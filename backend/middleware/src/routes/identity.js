@@ -8,8 +8,8 @@ class IdentityRoutes {
 
   initializeRoutes() {
     this.router.get('/simple', this.generateFullProfile);
-    this.router.get('/createdWithName', this.generateFullProfileByName);
-    this.router.get('/createdWithNationality', this.generateFullProfileByNationality);
+    this.router.get('/byName', this.generateFullProfileByName);
+    this.router.get('/byNationality', this.generateFullProfileByNationality);
   }
 
   generateFullProfile(req, res) {

@@ -8,7 +8,7 @@ class NameRoutes {
 
   initializeRoutes() {
     this.router.get('/random', this.generateRandomName);
-    this.router.get('/createWithGender', this.generateNameByGender);
+    this.router.get('/byGender', this.generateNameByGender);
   }
 
   generateRandomName(req, res) {

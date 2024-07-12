@@ -7,7 +7,7 @@ class BirthplaceRoutes {
   }
 
   initializeRoutes() {
-    this.router.get('/createWithCountry', this.generateBirthplaceByCountry);
+    this.router.get('/byCountry', this.generateBirthplaceByCountry);
   }
 
   generateBirthplaceByCountry(req, res) {

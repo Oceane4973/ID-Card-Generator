@@ -7,7 +7,7 @@ class FaceRoutes {
   }
 
   initializeRoutes() {
-    this.router.get('/createWithGenderAndAge', this.generateFaceByGenderAndAge);
+    this.router.get('/byGenderAndAge', this.generateFaceByGenderAndAge);
   }
 
   generateFaceByGenderAndAge(req, res) {

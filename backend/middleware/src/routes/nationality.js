@@ -7,7 +7,7 @@ class NationalityRoutes {
   }
 
   initializeRoutes() {
-    this.router.get('/createWithFirstName', this.determineNationalityByFirstname);
+    this.router.get('/byFirstName', this.determineNationalityByFirstname);
   }
 
   determineNationalityByFirstname(req, res) {

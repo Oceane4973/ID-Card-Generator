@@ -80,7 +80,7 @@ paths:
                 type: 'string'
                 example: 'Dupont'
 
-  /name/createWithGender:
+  /name/byGender:
     get:
       tags :  
           - Name
@@ -107,7 +107,7 @@ paths:
                 type: 'string'
                 example: 'Curie'
 
-  /gender/createWithFirstName:
+  /gender/byName:
     get:
       tags :  
           - Gender
@@ -131,7 +131,7 @@ paths:
                 type: 'string'
                 example: 'male'
 
-  /nationality/createWithFirstName:
+  /nationality/byName:
     get:
       tags :  
           - Nationnality
@@ -155,7 +155,7 @@ paths:
                 type: 'string'
                 example: 'French'
 
-  /birthplace/createWithCountry:
+  /birthplace/byCountry:
     get:
       tags :  
           - Birthplace
@@ -197,7 +197,7 @@ paths:
                 type: 'integer'
                 example: 29
 
-  /age/createWithNameAndOrigin:
+  /age/byNameAndOrigin:
     get:
       tags :  
           - Age
@@ -255,7 +255,7 @@ paths:
                 type: 'integer'
                 example: 27
 
-  /face/createWithGenderAndAge:
+  /face/byGenderAndAge:
     get:
       tags :  
           - Face

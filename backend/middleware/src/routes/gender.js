@@ -7,7 +7,7 @@ class GenderRoutes {
   }
 
   initializeRoutes() {
-    this.router.get('/createWithFirstName', this.determineGenderByFirstname);
+    this.router.get('/byName', this.determineGenderByFirstname);
   }
 
   determineGenderByFirstname(req, res) {
