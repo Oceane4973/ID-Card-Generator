@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/GenerationButton.css';
+import '../styles/Buttons.css';
 
 const GenerationButton = ({ onClick }) => {
 	return (

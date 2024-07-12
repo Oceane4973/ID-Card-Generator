@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import IdentityCard from './components/IdentityCard';
 import GenerationButton from './components/GenerationButton';
+import DownloadButton from './components/DownloadButton';
 
 const App = () => {
 	const initialIdentityData = {
@@ -35,6 +36,7 @@ const App = () => {
 			<main className="App-main">
 				<IdentityCard {...identityData} />
 				<GenerationButton onClick={handleGenerateClick} />
+				<DownloadButton />
 			</main>
 		</div>
 	);
