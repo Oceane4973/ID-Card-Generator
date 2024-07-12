@@ -1,18 +1,5 @@
 #!/bin/bash
 
-# Trouver l'emplacement de npm et l'ajouter au PATH si nécessaire
-NPM_PATH=$(which npm)
-
-if [ -z "$NPM_PATH" ]; then
-  echo "Error: npm is not installed or not in the PATH."
-  exit 1
-fi
-
-# Ajouter l'emplacement de npm au PATH si nécessaire
-if [[ ":$PATH:" != *":$(dirname $NPM_PATH):"* ]]; then
-  export PATH=$PATH:$(dirname $NPM_PATH)
-fi
-
 CONFIG_FILE="config.yaml"
 PIDS=()
 
@@ -35,22 +22,37 @@ read_service_config() {
 
     local service_name=""
     local path=""
-    local start_command=""
+    local setup_script_path=""
+    local start_script_path=""
 
     while IFS= read -r line || [ -n "$line" ]; do
-        if [[ $line == *"path:"* ]]; then
+        if [[ $line == *"name:"* ]]; then
+            service_name=$(echo "$line" | awk '{print $2}')
+        elif [[ $line == *"setup_script_path:"* ]]; then
+            setup_script_path=$(echo "$line" | awk '{print $2}')
+        elif [[ $line == *"start_script_path:"* ]]; then
+            start_script_path=$(echo "$line" | awk '{print $2}')
+            echo "Starting $service_name service from directory $absolute_path"
+
+            (
+              cd "$absolute_path" || exit
+
+              # Make scripts executable
+              chmod +x "$setup_script_path"
+              chmod +x "$start_script_path"
+
+              # Execute setup script
+              echo "Executing setup script: $setup_script_path"
+              ./"$setup_script_path"
+
+              # Execute start script
+              echo "Executing start script: $start_script_path"
+              ./"$start_script_path"
+            ) &
+            PIDS+=($!)
+        elif [[ $line == *"path:"* ]]; then
             path=$(echo "$line" | awk '{print $2}')
             absolute_path="${current_dir}${path}"
-        fi
-        if [[ $line == *"name:"* ]]; then
-            service_name=$(echo "$line" | awk '{print $3}')
-        fi
-        if [[ $line == *"start_command:"* ]]; then
-            start_command=$(echo "$line" | awk -F': ' '{print $2}')
-            echo $start_command
-            echo "Starting $service_name service from directory $absolute_path"
-            (cd "$absolute_path" && command npm start) &
-            PIDS+=($!)
         fi
     done < "$file"
 }
