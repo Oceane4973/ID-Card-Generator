@@ -1,15 +1,23 @@
-require('dotenv').config();
-const axios = require('axios');
-const express = require('express');
-const app = express();
+import axios from 'axios';
+import express from 'express'
+const apiURL = "https://randomuser.me/api/";
 
-const PORT = process.env.PORT || 5005;
+const router = express.Router();
 
-app.get('/nameService/api/names', async (req, res) => {
-    res.json({ firstName: "Henry", lastName: "Martin" });
+router.get('/random', async (req, res) => {
+    let returnValue = await fetch(apiURL)
+    .then(response => {
+        if(!response.ok) throw new Error('API response was not ok');
+        return response.json();
+    })
+    .then(value => {
+        let result = {
+            firstName: value.results[0].name.first,
+            lastName: value.results[0].name.last,
+        }
+        return result;
+    });
+    res.send(returnValue);
 });
 
-app.listen(PORT, () => {
-    console.log(`Name Service is running on port ${PORT}`);
-    console.log(`On localhost, you can click on this link : http://localhost:${PORT}/nameService/api/names`);
-});
+export { router };
