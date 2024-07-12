@@ -1,0 +1,12 @@
+.identity-info {
+	text-align: left;
+	margin-left : 45%;
+	height: 70%;
+}
+
+p{
+	color: white;
+	text-shadow: #000 0 0 1px;
+	font-family: sans-serif;
+	font-size: 1.5rem;
+}

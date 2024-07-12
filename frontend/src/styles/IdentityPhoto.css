@@ -1,0 +1,13 @@
+.identity-photo {
+	position: absolute;
+	top: 80px;
+	left: 30px;
+	width: 250px;
+	height: 250px;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.3);
+}
