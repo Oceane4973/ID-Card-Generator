@@ -1,0 +1,453 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: 'Fake ID Generator - Middlware API'
+  description: "Fake ID Generator est un générateur de cartes d'identité fictives qui vise à offrir une expérience pratique et utile pour diverses applications, notamment le développement de jeux de rôle et d'autres projets nécessitant des données d'identité réalistes."
+
+
+host: 'api.fake-id-generator.com'
+basePath: '/v1'
+schemes:
+  - 'https'
+  - 'http'
+
+paths:
+  /id/simple:
+    get:
+      tags :  
+        - ID
+      summary: 'Génère un ID simple'
+      operationId: 'generateSimpleId'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: 'Un ID unique généré'
+          schema:
+            type: 'object'
+            properties:
+              id:
+                type: 'string'
+                example: 'uuid-v4-string'
+
+  /id/complex:
+    get:
+      tags :  
+          - ID
+      summary: 'Génère un ID complexe'
+      operationId: 'generateComplexId'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'length'
+          in: 'query'
+          description: 'Longueur de l’identifiant'
+          required: false
+          type: 'integer'
+        - name: 'type'
+          in: 'query'
+          description: 'Type de caractères (numérique, alphabétique, alphanumérique)'
+          required: false
+          type: 'string'
+      responses:
+        200:
+          description: 'Un ID complexe généré'
+          schema:
+            type: 'object'
+            properties:
+              id:
+                type: 'string'
+                example: 'custom-alphanumeric-string'
+
+  /name/random:
+    get:
+      tags :  
+          - Name
+      summary: 'Génère un prénom et un nom aléatoires'
+      operationId: 'generateRandomName'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: 'Prénom et nom générés aléatoirement'
+          schema:
+            type: 'object'
+            properties:
+              firstName:
+                type: 'string'
+                example: 'Jean'
+              lastName:
+                type: 'string'
+                example: 'Dupont'
+
+  /name/createWithGender:
+    get:
+      tags :  
+          - Name
+      summary: 'Génère un prénom et un nom par genre'
+      operationId: 'generateNameByGender'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'gender'
+          in: 'query'
+          description: 'Genre souhaité (male ou female)'
+          required: true
+          type: 'string'
+      responses:
+        200:
+          description: 'Prénom et nom générés pour un genre spécifié'
+          schema:
+            type: 'object'
+            properties:
+              firstName:
+                type: 'string'
+                example: 'Marie'
+              lastName:
+                type: 'string'
+                example: 'Curie'
+
+  /gender/createWithFirstName:
+    get:
+      tags :  
+          - Gender
+      summary: 'Détermine le genre à partir d’un prénom'
+      operationId: 'determineGenderByFirstname'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'firstname'
+          in: 'query'
+          description: 'Prénom sur la base duquel le genre sera déterminé'
+          required: true
+          type: 'string'
+      responses:
+        200:
+          description: 'Genre déterminé pour le prénom fourni'
+          schema:
+            type: 'object'
+            properties:
+              gender:
+                type: 'string'
+                example: 'male'
+
+  /nationality/createWithFirstName:
+    get:
+      tags :  
+          - Nationnality
+      summary: 'Détermine la nationalité par prénom'
+      operationId: 'determineNationalityByFirstname'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'firstname'
+          in: 'query'
+          description: 'Prénom sur la base duquel la nationalité sera déterminée'
+          required: true
+          type: 'string'
+      responses:
+        200:
+          description: 'Nationalité déterminée pour le prénom fourni'
+          schema:
+            type: 'object'
+            properties:
+              nationality:
+                type: 'string'
+                example: 'French'
+
+  /birthplace/createWithCountry:
+    get:
+      tags :  
+          - Birthplace
+      summary: 'Génère un lieu de naissance par pays'
+      operationId: 'generateBirthplaceByCountry'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'country'
+          in: 'query'
+          description: 'Le pays pour lequel une ville de naissance est à générer'
+          required: true
+          type: 'string'
+      responses:
+        200:
+          description: 'Lieu de naissance généré pour le pays spécifié'
+          schema:
+            type: 'object'
+            properties:
+              birthplace:
+                type: 'string'
+                example: 'Paris'
+
+  /age/random:
+    get:
+      tags :  
+          - Age
+      summary: 'Génère un âge aléatoire'
+      operationId: 'generateRandomAge'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: 'Âge généré aléatoirement'
+          schema:
+            type: 'object'
+            properties:
+              age:
+                type: 'integer'
+                example: 29
+
+  /age/createWithNameAndOrigin:
+    get:
+      tags :  
+          - Age
+      summary: "Génère un âge basé sur le prénom et le pays d'origine"
+      operationId: 'generateAgeByNameOrigin'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'firstname'
+          in: 'query'
+          description: "Le prénom de l'individu"
+          required: true
+          type: 'string'
+        - name: 'country'
+          in: 'query'
+          description: "Le pays d'origine de l'individu"
+          required: true
+          type: 'string'
+      responses:
+        200:
+          description: "Âge plausible généré basé sur le prénom et le pays d'origine"
+          schema:
+            type: 'object'
+            properties:
+              age:
+                type: 'integer'
+                example: 35
+
+  /age/range:
+    get:
+      tags :  
+          - Age
+      summary: 'Génère un âge dans une plage spécifiée'
+      operationId: 'generateAgeByRange'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'minAge'
+          in: 'query'
+          description: "L'âge minimum de la plage"
+          required: true
+          type: 'integer'
+        - name: 'maxAge'
+          in: 'query'
+          description: "L'âge maximum de la plage"
+          required: true
+          type: 'integer'
+      responses:
+        200:
+          description: 'Âge généré aléatoirement compris entre les limites spécifiées'
+          schema:
+            type: 'object'
+            properties:
+              age:
+                type: 'integer'
+                example: 27
+
+  /face/createWithGenderAndAge:
+    get:
+      tags :  
+          - Face
+      summary: "Génère un visage basé sur le genre et l'âge"
+      operationId: 'generateFaceByGenderAndAge'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'gender'
+          in: 'query'
+          description: 'Le genre du visage à générer (male, female)'
+          required: true
+          type: 'string'
+        - name: 'age'
+          in: 'query'
+          description: "L'âge du visage à générer"
+          required: true
+          type: 'integer'
+      responses:
+        200:
+          description: "Image de visage générée basée sur le genre et l'âge spécifiés"
+          schema:
+            type: 'object'
+            properties:
+              image-b64:
+                type: 'string'
+                example: '/9j/4AAQSkZJRgABAQEAAAAAAAD...'
+
+  /identity/simple:
+    get:
+      tags:
+        - Identity
+      summary: 'Génère un profil complet avec toutes les informations'
+      operationId: 'generateFullProfile'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'firstname'
+          in: 'query'
+          description: "Prénom utilisé pour générer le genre et d'autres détails"
+          required: false
+          type: 'string'
+        - name: 'gender'
+          in: 'query'
+          description: 'Genre utilisé pour influencer la génération du nom et du visage'
+          required: false
+          type: 'string'
+        - name: 'country'
+          in: 'query'
+          description: "Pays utilisé pour influencer la génération du lieu de naissance et de l'âge"
+          required: false
+          type: 'string'
+      responses:
+        200:
+          description: 'Profil complet généré avec succès'
+          schema:
+            type: 'object'
+            properties:
+              id:
+                type: 'string'
+                example: 'uuid-v4-string'
+              firstName:
+                type: 'string'
+                example: 'Jean'
+              lastName:
+                type: 'string'
+                example: 'Dupont'
+              gender:
+                type: 'string'
+                example: 'male'
+              nationality:
+                type: 'string'
+                example: 'French'
+              birthplace:
+                type: 'string'
+                example: 'Paris'
+              age:
+                type: 'integer'
+                example: 29
+              faceImage:
+                type: 'string'
+                example: '/9j/4AAQSkZJRgABAQEAAAAAAAD...'
+
+  /identity/createdWithName:
+    get:
+      tags:
+        - Identity
+      summary: 'Génère un profil complet basé sur un prénom donné'
+      operationId: 'generateFullProfileByName'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'firstname'
+          in: 'query'
+          description: 'Prénom utilisé pour générer le profil complet'
+          required: true
+          type: 'string'
+      responses:
+        200:
+          description: 'Profil complet généré basé sur le prénom fourni'
+          schema:
+            type: 'object'
+            properties:
+              id:
+                type: 'string'
+                example: 'uuid-v4-string'
+              firstName:
+                type: 'string'
+                example: 'Jean'
+              lastName:
+                type: 'string'
+                example: 'Dupont'
+              gender:
+                type: 'string'
+                example: 'male'
+              nationality:
+                type: 'string'
+                example: 'French'
+              birthplace:
+                type: 'string'
+                example: 'Paris'
+              age:
+                type: 'integer'
+                example: 29
+              faceImage:
+                type: 'string'
+                example: '/9j/4AAQSkZJRgABAQEAAAAAAAD...'
+
+  /identity/createdWithNationality:
+    get:
+      tags:
+          - Identity
+      summary: 'Génère un profil complet basé sur une nationalité donnée'
+      operationId: 'generateFullProfileByNationality'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'nationality'
+          in: 'query'
+          description: 'Nationalité utilisée pour générer le profil complet'
+          required: true
+          type: 'string'
+      responses:
+        200:
+          description: 'Profil complet généré basé sur la nationalité fournie'
+          schema:
+            type: 'object'
+            properties:
+              id:
+                type: 'string'
+                example: 'uuid-v4-string'
+              firstName:
+                type: 'string'
+                example: 'Jean'
+              lastName:
+                type: 'string'
+                example: 'Dupont'
+              gender:
+                type: 'string'
+                example: 'male'
+              nationality:
+                type: 'string'
+                example: 'French'
+              birthplace:
+                type: 'string'
+                example: 'Paris'
+              age:
+                type: 'integer'
+                example: 29
+              faceImage:
+                type: 'string'
+                example: '/9j/4AAQSkZJRgABAQEAAAAAAAD...'
+
+definitions:
+  ApiResponse:
+    type: 'object'
+    required:
+      - 'code'
+      - 'message'
+    properties:
+      code:
+        type: 'integer'
+        format: 'int32'
+      message:
+        type: 'string'
+
+securityDefinitions:
+  ApiKeyAuth:
+    type: 'apiKey'
+    in: 'header'
+    name: 'Authorization'
+
+security:
+  - ApiKeyAuth: []
+
