@@ -1,5 +1,11 @@
 version: '1.0'
 
+middleware : 
+  path: /middleware
+  setup_script_path: setup.sh
+  start_script_path: run.sh
+  description: "Fake ID Generator API"
+
 services:
   name-service:
     path: /services/nameServices
