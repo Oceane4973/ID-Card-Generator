@@ -345,7 +345,7 @@ paths:
                 type: 'string'
                 example: '/9j/4AAQSkZJRgABAQEAAAAAAAD...'
 
-  /identity/createdWithName:
+  /identity/byName:
     get:
       tags:
           - Identity
@@ -390,7 +390,7 @@ paths:
                 type : 'string'
                 example : '/9j/4AAQSkZJRgABAQEAAAAAD...'
 
-  /identity/createdWithNationality:
+  /identity/byNationality:
     get :
       tags:
         - Identity
