@@ -1,36 +1,35 @@
 #!/bin/bash
 
-NPM_PATH=$(which npm)
+# setup.sh
+# =============================================
+# Setup Script for Go Application
+# =============================================
+# This script sets up the Go environment and installs necessary dependencies.
+# It checks for the presence of Go, installs it if necessary, initializes
+# the Go module if not already done, and ensures that the required packages
+# are available. Additionally, it creates a .env file with default configurations
+# if it does not exist.
+# =============================================
 
-if [ -z "$NPM_PATH" ]; then
-  echo "Error: npm is not installed or not in the PATH."
-  exit 1
-fi
-
-if [[ ":$PATH:" != *":$(dirname $NPM_PATH):"* ]]; then
-  export PATH=$PATH:$(dirname $NPM_PATH)
-fi
-
-if [ ! -f "package.json" ]; then
-    echo "Executing npm init -y"
-    npm init -y
-    npm install axios dotenv express
+if [ ! -f "go.mod" ]; then
+  echo "Initializing Go module"
+  go mod init id-service
 else
-    echo "npm init -y already executed"
+  echo "Go module already initialized"
 fi
 
-
-if [ -f "package.json" ]; then
-    if grep -q '"main":' package.json; then
-        sed -i 's#"main": "[^"]*"#"main": "src/index.js"#' package.json
-    else
-        sed -i '/^{/a \  "main": "src/index.js",' package.json
-    fi
-    if grep -q '"start":' package.json; then
-        sed -i 's#"start": "[^"]*"#"start": "node src/index.js"#' package.json
-    else
-        sed -i '/"scripts": {/a \    "start": "node src/index.js",' package.json
-    fi
+if ! grep -q 'github.com/joho/godotenv' go.mod; then
+  echo "Installing godotenv package"
+  go get github.com/joho/godotenv
+else
+  echo "godotenv package already installed"
 fi
 
-echo "Les informations ont été mises à jour dans package.json."
+if [ ! -f ".env" ]; then
+  echo "Creating .env file with default PORT"
+  echo "PORT=5007" > .env
+else
+  echo ".env file already exists"
+fi
+
+echo "Setup is complete. You can now run your Go application with 'go run src/main.go'."
