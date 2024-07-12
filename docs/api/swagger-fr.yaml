@@ -151,9 +151,15 @@ paths:
           schema:
             type: 'object'
             properties:
+              country_id:
+                type: 'string'
+                example: 'FR'
               nationality:
                 type: 'string'
                 example: 'French'
+              country_name:
+                type: 'string'
+                example: 'France'
 
   /birthplace/byCountry:
     get:
