@@ -12,7 +12,7 @@ find . -name "package.json" -type f -exec rm -f '{}' +
 
 
 START_PORT=5001
-END_PORT=5007
+END_PORT=5008
 
 for PORT in $(seq $START_PORT $END_PORT); do
 
