@@ -10,13 +10,13 @@ import IdentityRoutes from './routes/identity.js';
 
 const app = express();
 
-app.use('/v1/id', IdRoutes);
-app.use('/v1/name', NameRoutes);
-app.use('/v1/gender', GenderRoutes);
-app.use('/v1/nationality', NationalityRoutes);
-app.use('/v1/birthplace', BirthplaceRoutes);
-app.use('/v1/age', AgeRoutes);
-app.use('/v1/face', FaceRoutes);
-app.use('/v1/identity', IdentityRoutes);
+app.use('/api/v1/id', IdRoutes);
+app.use('/api/v1/name', NameRoutes);
+app.use('/api/v1/gender', GenderRoutes);
+app.use('/api/v1/nationality', NationalityRoutes);
+app.use('/api/v1/birthplace', BirthplaceRoutes);
+app.use('/api/v1/age', AgeRoutes);
+app.use('/api/v1/face', FaceRoutes);
+app.use('/api/v1/identity', IdentityRoutes);
 
 export default app;
