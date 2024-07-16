@@ -1,2 +1,5 @@
 node_modules
 package-lock.json
+update_requirements.sh
+.venv/
+backend/services/faceServices/.env
