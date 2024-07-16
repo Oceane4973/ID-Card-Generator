@@ -1,14 +1,15 @@
 #!/bin/bash
 
-NPM_PATH=$(which npm)
+PYTHON_PATH=$(which python3)
 
-if [ -z "$NPM_PATH" ]; then
-  echo "Error: npm is not installed or not in the PATH."
+if [ -z "$PYTHON_PATH" ]; then
+  echo "Error: python3 is not installed or not in the PATH."
   exit 1
 fi
 
-if [[ ":$PATH:" != *":$(dirname $NPM_PATH):"* ]]; then
-  export PATH=$PATH:$(dirname $NPM_PATH)
+if [[ ":$PATH:" != *":$(dirname $PYTHON_PATH):"* ]]; then
+  export PATH=$PATH:$(dirname $PYTHON_PATH)
 fi
 
-npm start
+echo "Running application"
+python3 src/main.py
