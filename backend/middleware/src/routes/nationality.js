@@ -12,7 +12,11 @@ class NationalityRoutes {
 
   determineNationalityByFirstname(req, res) {
     const { firstname } = req.query;
-    res.json({ nationality: 'French' });
+    res.json({
+      "country_id": "FR",
+      "nationality": "French",
+      "country_name": "France"
+  });
   }
 }
 

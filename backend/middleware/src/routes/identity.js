@@ -13,7 +13,7 @@ class IdentityRoutes {
   }
 
   generateFullProfile(req, res) {
-    const { firstname, gender, country } = req.query;
+    const { name, gender, country } = req.query;
     res.json({
       id: 'uuid-v4-string',
       firstName: 'Jean',
@@ -27,7 +27,7 @@ class IdentityRoutes {
   }
 
   generateFullProfileByName(req, res) {
-    const { firstname } = req.query;
+    const { name } = req.query;
     res.json({
       id: 'uuid-v4-string',
       firstName: 'Jean',

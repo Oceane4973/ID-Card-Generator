@@ -20,9 +20,9 @@ router.get('/ByName', async (req, res) => {
         const country_name = getCountryName(country_id);
         const nationality = await getNationality(country_id);
         res.send({
-            'id-country': country_id,
+            'country_id': country_id,
             'nationality': nationality,
-            'name': country_name,
+            'country_name': country_name,
         });
     } catch (error) {
         res.status(500).send({

@@ -111,19 +111,19 @@ paths:
     get:
       tags :  
           - Gender
-      summary: 'Détermine le genre à partir d’un prénom'
-      operationId: 'determineGenderByFirstname'
+      summary: 'Détermine le genre à partir d’un nom'
+      operationId: 'determineGenderByName'
       produces:
         - 'application/json'
       parameters:
-        - name: 'firstname'
+        - name: 'name'
           in: 'query'
-          description: 'Prénom sur la base duquel le genre sera déterminé'
+          description: 'Nom sur la base duquel le genre sera déterminé'
           required: true
           type: 'string'
       responses:
         200:
-          description: 'Genre déterminé pour le prénom fourni'
+          description: 'Genre déterminé pour le nom fourni'
           schema:
             type: 'object'
             properties:
@@ -135,19 +135,19 @@ paths:
     get:
       tags :  
           - Nationnality
-      summary: 'Détermine la nationalité par prénom'
-      operationId: 'determineNationalityByFirstname'
+      summary: 'Détermine la nationalité par le nom'
+      operationId: 'determineNationalityByName'
       produces:
         - 'application/json'
       parameters:
-        - name: 'firstname'
+        - name: 'name'
           in: 'query'
-          description: 'Prénom sur la base duquel la nationalité sera déterminée'
+          description: 'Nom sur la base duquel la nationalité sera déterminée'
           required: true
           type: 'string'
       responses:
         200:
-          description: 'Nationalité déterminée pour le prénom fourni'
+          description: 'Nationalité déterminée pour le nom fourni'
           schema:
             type: 'object'
             properties:
@@ -207,14 +207,14 @@ paths:
     get:
       tags :  
           - Age
-      summary: "Génère un âge basé sur le prénom et le pays d'origine"
+      summary: "Génère un âge basé sur le nom et le pays d'origine"
       operationId: 'generateAgeByNameOrigin'
       produces:
         - 'application/json'
       parameters:
-        - name: 'firstname'
+        - name: 'name'
           in: 'query'
-          description: "Le prénom de l'individu"
+          description: "Le nom de l'individu"
           required: true
           type: 'string'
         - name: 'country'
@@ -224,7 +224,7 @@ paths:
           type: 'string'
       responses:
         200:
-          description: "Âge plausible généré basé sur le prénom et le pays d'origine"
+          description: "Âge plausible généré basé sur le nom et le pays d'origine"
           schema:
             type: 'object'
             properties:
@@ -299,9 +299,9 @@ paths:
       produces:
         - 'application/json'
       parameters:
-        - name: 'firstname'
+        - name: 'name'
           in: 'query'
-          description: "Prénom utilisé pour générer le genre et d'autres détails"
+          description: "Nom utilisé pour générer le genre et d'autres détails"
           required: false
           type: 'string'
         - name: 'gender'
@@ -349,19 +349,19 @@ paths:
     get:
       tags:
         - Identity
-      summary: 'Génère un profil complet basé sur un prénom donné'
+      summary: 'Génère un profil complet basé sur un nom donné'
       operationId: 'generateFullProfileByName'
       produces:
         - 'application/json'
       parameters:
-        - name: 'firstname'
+        - name: 'name'
           in: 'query'
-          description: 'Prénom utilisé pour générer le profil complet'
+          description: 'Nom utilisé pour générer le profil complet'
           required: true
           type: 'string'
       responses:
         200:
-          description: 'Profil complet généré basé sur le prénom fourni'
+          description: 'Profil complet généré basé sur le nom fourni'
           schema:
             type: 'object'
             properties:

@@ -112,13 +112,13 @@ paths:
       tags :  
           - Gender
       summary: 'Determine gender by first name'
-      operationId: 'determineGenderByFirstname'
+      operationId: 'determineGenderByName'
       produces:
         - 'application/json'
       parameters:
-        - name: 'firstname'
+        - name: 'name'
           in: 'query'
-          description: 'firstname used to determine gender'
+          description: 'name used to determine gender'
           required: true
           type: 'string'
       responses:
@@ -136,13 +136,13 @@ paths:
       tags :  
           - Nationnality
       summary: 'Determine nationality by first name'
-      operationId: 'determineNationalityByFirstname'
+      operationId: 'determineNationalityByName'
       produces:
         - 'application/json'
       parameters:
-        - name: 'firstname'
+        - name: 'name'
           in: 'query'
-          description: 'firstname on the basis of which nationality will be determined'
+          description: 'name on the basis of which nationality will be determined'
           required: true
           type: 'string'
       responses:
@@ -212,7 +212,7 @@ paths:
       produces:
         - 'application/json'
       parameters:
-        - name: 'firstname'
+        - name: 'name'
           in: 'query'
           description: "The first name of the individual"
           required: true
@@ -299,9 +299,9 @@ paths:
       produces:
         - 'application/json'
       parameters:
-        - name: 'firstname'
+        - name: 'name'
           in: 'query'
-          description: "Firstname used to generate gender and other details"
+          description: "Name used to generate gender and other details"
           required: false
           type: 'string'
         - name: 'gender'
@@ -354,14 +354,14 @@ paths:
       produces:
         - 'application/json'
       parameters:
-        - name : 'firstName'
+        - name : 'name'
           in : 'query'
           description : "First name used to generate a full profile"
           required : true
           type : 'string'
       responses :
         200 :
-          description : 'Full profile generated, based on given firstName'
+          description : 'Full profile generated, based on given name'
           schema :
             type : 'object'
             properties :

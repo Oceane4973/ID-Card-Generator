@@ -11,13 +11,13 @@ class GenderRoutes {
   }
 
   determineGenderByFirstname(req, res) {
-    const { firstname } = req.query;
-    if (firstname === 'Jean') {
+    const { name } = req.query;
+    if (name === 'Jean') {
       res.json({ gender: 'male' });
-    } else if (firstname === 'Marie') {
+    } else if (name === 'Marie') {
       res.json({ gender: 'female' });
     } else {
-      res.status(400).json({ error: 'Invalid firstname' });
+      res.status(400).json({ error: 'Invalid name' });
     }
   }
 }

@@ -17,7 +17,7 @@ class AgeRoutes {
   }
 
   generateAgeByNameOrigin(req, res) {
-    const { firstname, country } = req.query;
+    const { name, country } = req.query;
     res.json({ age: 35 });
   }
 
