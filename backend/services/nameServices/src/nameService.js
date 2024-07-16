@@ -11,11 +11,7 @@ router.get('/random', async (req, res) => {
         return response.json();
     })
     .then(value => {
-        let result = {
-            firstName: value.results[0].name.first,
-            lastName: value.results[0].name.last,
-        }
-        return result;
+        return apiResponseConstructor(value.results[0].name.first, value.results[0].name.last);
     });
     res.send(returnValue);
 });
@@ -37,13 +33,17 @@ router.get('/byGender', async (req, res) => {
         return response.json();
     })
     .then(value => {
-        let result = {
-            firstName: value.results[0].name.first,
-            lastName: value.results[0].name.last,
-        }
-        return result;
+        return apiResponseConstructor(value.results[0].name.first, value.results[0].name.last);
     });
     res.send(returnValue);
 });
+
+const apiResponseConstructor = (firstName, lastName) => {
+    const result = {
+        firstName: firstName,
+        lastName: lastName,
+    }
+    return result;
+}
 
 export { router };
