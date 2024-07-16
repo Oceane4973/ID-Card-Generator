@@ -53,7 +53,7 @@ async function getNewIdentityData() {
 		birthPlace: birthPlace,
 		gender: gender,
 		UUID: id,
-		photoUrl: './man.jpg',
+		photoUrl: photoUrl,
 	};
 	return newIdentityData;
 }
@@ -154,9 +154,10 @@ async function getBirthDate(age) {
 async function getFace(gender, age) {
 	try {
 		const response = await axios.get(
-			`${baseURL}/face/byGenderAndAge?gender=${gender}&age=${age}`
+			`${baseURL}/face/byGenderAndAge?gender=${gender}&age=${age}`,
+			{ responseType: 'arraybuffer' }
 		);
-		return response.data.image_b64;
+		return response.data;
 	} catch (error) {
 		console.error(
 			'Erreur lors de la récupération de la photo aléatoire:',
