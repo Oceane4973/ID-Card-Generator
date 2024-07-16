@@ -28,7 +28,6 @@ router.get('/byCountry', async (req, res) => {
         return response.json();
     })
     .then(value => {
-        console.log(value)
         const randomCityNumber = Math.floor(Math.random() * 10);
         return apiResponseConstructor(value.data[randomCityNumber].name);
     });
@@ -36,7 +35,7 @@ router.get('/byCountry', async (req, res) => {
 });
 
 const apiResponseConstructor = (birthPlace) => {
-    return result = {
+    return {
         birthPlace: birthPlace,
     }
 }
