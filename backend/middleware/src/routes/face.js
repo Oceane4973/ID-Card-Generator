@@ -12,7 +12,7 @@ class FaceRoutes {
 
   generateFaceByGenderAndAge(req, res) {
     const { gender, age } = req.query;
-    res.json({ 'image-b64': '/9j/4AAQSkZJRgABAQEAAAAAAAD...' });
+    res.json({ 'image_b64': '/9j/4AAQSkZJRgABAQEAAAAAAAD...' });
   }
 }
 

@@ -7,8 +7,10 @@ import BirthplaceRoutes from './routes/birthplace.js';
 import AgeRoutes from './routes/age.js';
 import FaceRoutes from './routes/face.js';
 import IdentityRoutes from './routes/identity.js';
+import cors from "cors";
 
 const app = express();
+app.use(cors());
 
 app.use('/api/v1/id', IdRoutes);
 app.use('/api/v1/name', NameRoutes);
