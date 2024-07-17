@@ -4,6 +4,7 @@ import './App.css';
 import IdentityCard from './components/IdentityCard';
 import GenerationButton from './components/GenerationButton';
 import DownloadButton from './components/DownloadButton';
+import { ThreeDots } from 'react-loader-spinner'; // Importing the spinner
 
 const baseURL = 'http://localhost:5008/api/v1';
 
@@ -19,16 +20,25 @@ const App = () => {
 	};
 
 	const [identityData, setIdentityData] = useState(initialIdentityData);
+	const [loading, setLoading] = useState(false); // Adding loading state
 
 	const handleGenerateClick = async () => {
+		setLoading(true);
 		const newIdentityData = await getNewIdentityData();
 		setIdentityData(newIdentityData);
+		setLoading(false);
 	};
 
 	return (
 		<div className="App">
 			<main className="App-main">
-				<IdentityCard {...identityData} />
+				{loading ? (
+					<div className="spinner-container">
+						<ThreeDots color="#00BFFF" height={80} width={80} />
+					</div>
+				) : (
+					<IdentityCard {...identityData} />
+				)}
 				<GenerationButton onClick={handleGenerateClick} />
 				<DownloadButton />
 			</main>
@@ -99,7 +109,7 @@ async function getGender(name) {
 async function getNationality(name) {
 	try {
 		const response = await axios.get(
-			`${baseURL}/nationality/byName?firstname=${name.firstName}%20${name.lastName}`
+			`${baseURL}/nationality/byName?name=${name.firstName}%20${name.lastName}`
 		);
 		return response.data;
 	} catch (error) {
@@ -140,8 +150,8 @@ async function getAge(name, nationality) {
 
 async function getBirthDate(age) {
 	try {
-		const year = new Date().getFullYear() - generateNormalRandom(age, 2);
-		const response = generateRandomDate(year);
+		const year = new Date().getFullYear() - age;
+		const response = randomDate(year);
 		return response;
 	} catch (error) {
 		console.error(
@@ -166,13 +176,7 @@ async function getFace(gender, age) {
 	}
 }
 
-function generateNormalRandom(mean, stdDev) {
-	let u1 = Math.random();
-	let u2 = Math.random();
-	let z0 = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
-	return z0 * stdDev + mean;
-}
-function generateRandomDate(year) {
+function randomDate(year) {
 	function isLeapYear(year) {
 		return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 	}
