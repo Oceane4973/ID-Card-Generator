@@ -1,15 +1,47 @@
-require('dotenv').config();
-const axios = require('axios');
-const express = require('express');
-const app = express();
+import express from 'express';
+import axios from 'axios';
 
-const PORT = process.env.PORT || 5004;
+const router = express.Router();
 
-app.get('/genderService/api/gender', async (req, res) => {
-    res.json({ gender : "male"});
+router.get('/byName', async (req, res) => {
+    const { name } = req.query;
+    try {
+        const response = await axios.get(`https://api.genderize.io?name=${name}`);
+        const { gender, probability } = response.data;
+        const selectedGender = chooseGender(gender, probability);
+
+        res.json({ 'gender':selectedGender });
+    } catch (error) {
+        console.error('Error recovering gender data :', error.message);
+        res.status(500).json({ error: 'Error recovering gender data.' });
+    }
 });
 
-app.listen(PORT, () => {
-    console.log(`Gender Service is running on port ${PORT}`);
-    console.log(`On localhost, you can click on this link : http://localhost:${PORT}/genderService/api/gender`);
+router.get('/byNameAndOrigin', async (req, res) => {
+    const { name, country } = req.query;
+    try {
+        const response = await axios.get(`https://api.genderize.io?name=${name}&country_id=${country}`);
+        const { gender, probability } = response.data;
+        const selectedGender = chooseGender(gender, probability);
+
+        res.json({ 'gender':selectedGender });
+    } catch (error) {
+        console.error('Error recovering gender data :', error.message);
+        res.status(500).json({ error: 'Error recovering gender data.' });
+    }
 });
+
+function chooseGender(gender, probability) {
+    if (probability < 0 || probability > 1) {
+        throw new Error("The probability must be between 0 and 1.");
+    }
+
+    const randomValue = Math.random();
+    if (randomValue < probability) {
+        return gender;
+    } else {
+        return gender === "male" ? "female" : "male";
+    }
+}
+
+export { router };
