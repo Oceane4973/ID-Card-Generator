@@ -42,7 +42,7 @@ router.get('/range', async (req, res) => {
     } else if(req.query.min < MINIMUM_AGE) {
         return res
             .status(400)
-            .send({ error: 'Minimum can\t be under 18' });
+            .send({ error: 'Minimum can\'t be under 18' });
     }
     if(!req.query.max) {
         return res
@@ -51,7 +51,7 @@ router.get('/range', async (req, res) => {
     } else if(req.query.min > MAXIMUM_AGE + 1) {
         return res
             .status(400)
-            .send({ error: 'Maximum can\t be over 85' });
+            .send({ error: 'Maximum can\'t be over 85' });
     }
     const min = req.query.min;
     const max = req.query.max;

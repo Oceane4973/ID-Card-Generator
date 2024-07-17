@@ -24,7 +24,7 @@ router.get('/byGender', async (req, res) => {
     } else if(req.query.gender != "female" && req.query.gender != "male") {
         return res
             .status(400)
-            .send({ error: 'Gender msut be female or male' });
+            .send({ error: 'Gender must be female or male' });
     }
     let APIbyGender = apiURL + "?gender=" + req.query.gender;
     let returnValue = await fetch(APIbyGender)
