@@ -1,7 +1,6 @@
 import express from 'express';
-import axios from 'axios';
-import fs from 'fs';
-import path from 'path';
+import fetch from 'node-fetch';
+import { PassThrough } from 'stream';
 
 class FaceRoutes {
     constructor() {
@@ -10,35 +9,27 @@ class FaceRoutes {
     }
 
     initializeRoutes() {
-        this.router.get('/byGenderAndAge', this.generateFaceByGenderAndAge);
+        this.router.get('/byGenderAndAge', this.generateFaceByGenderAndAge.bind(this));
     }
 
     async generateFaceByGenderAndAge(req, res) {
         const { gender, age } = req.query;
 
         try {
-            const response = await axios.get(
-                `http://localhost:5003/api/v1/face/byGenderAndAge`,
-                { params: { age, gender }, responseType: 'arraybuffer' }
+            const response = await fetch(
+                `http://localhost:5003/api/v1/face/byGenderAndAge?age=${age}&gender=${gender}`
             );
 
-            if (response.status === 200) {
-                const contentType = response.headers['content-type'];
-                const extension = contentType.split('/')[1];
-                const tempFileName = `temp.${extension}`;
+            if (response.ok) {
+                const contentType = response.headers.get('content-type');
+                res.set('Content-Type', contentType);
 
-                fs.writeFileSync(tempFileName, response.data);
-
-                // Utilisez un chemin relatif correct pour envoyer le fichier
-                res.sendFile(path.resolve(tempFileName), {}, (err) => {
-                    if (err) {
-                        console.error('Error sending file:', err);
-                    }
-                    // Nettoyage du fichier temporaire après l'envoi
-                    fs.unlinkSync(tempFileName);
-                });
+                const bodyStream = new PassThrough();
+                response.body.pipe(bodyStream);
+                bodyStream.pipe(res);
             } else {
-                res.status(500).send(`Failed to retrieve image: ${response.data}`);
+                const errorText = await response.text();
+                res.status(500).send(`Failed to retrieve image: ${errorText}`);
             }
         } catch (error) {
             res.status(500).send(`Error: ${error.message}`);
