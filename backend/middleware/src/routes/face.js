@@ -4,6 +4,30 @@ import { PassThrough } from 'stream';
 
 const apiURL = 'http://localhost:5003/api/v1/face';
 
+export async function generateFaceByGenderAndAge(req, res) {
+    const { gender, age } = req.query;
+
+    try {
+        const response = await fetch(
+            `${apiURL}/byGenderAndAge?age=${age}&gender=${gender}`
+        );
+
+        if (response.ok) {
+            const contentType = response.headers.get('content-type');
+            res.set('Content-Type', contentType);
+
+            const bodyStream = new PassThrough();
+            response.body.pipe(bodyStream);
+            bodyStream.pipe(res);
+        } else {
+            const errorText = await response.text();
+            res.status(500).send(`Failed to retrieve image: ${errorText}`);
+        }
+    } catch (error) {
+        res.status(500).send(`Error: ${error.message}`);
+    }
+}
+
 class FaceRoutes {
     constructor() {
         this.router = express.Router();
@@ -11,31 +35,7 @@ class FaceRoutes {
     }
 
     initializeRoutes() {
-        this.router.get('/byGenderAndAge', this.generateFaceByGenderAndAge.bind(this));
-    }
-
-    async generateFaceByGenderAndAge(req, res) {
-        const { gender, age } = req.query;
-
-        try {
-            const response = await fetch(
-                `${apiURL}/byGenderAndAge?age=${age}&gender=${gender}`
-            );
-
-            if (response.ok) {
-                const contentType = response.headers.get('content-type');
-                res.set('Content-Type', contentType);
-
-                const bodyStream = new PassThrough();
-                response.body.pipe(bodyStream);
-                bodyStream.pipe(res);
-            } else {
-                const errorText = await response.text();
-                res.status(500).send(`Failed to retrieve image: ${errorText}`);
-            }
-        } catch (error) {
-            res.status(500).send(`Error: ${error.message}`);
-        }
+        this.router.get('/byGenderAndAge', generateFaceByGenderAndAge);
     }
 }
 

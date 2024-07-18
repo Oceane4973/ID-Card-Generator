@@ -16,6 +16,7 @@ import (
 	"os"
 
 	"id-service/src/handler"
+
 	"github.com/joho/godotenv"
 )
 
@@ -30,9 +31,9 @@ func main() {
 		port = "5007"
 	}
 
-	http.HandleFunc("/id/simple", handler.GenerateSimpleID)
-	http.HandleFunc("/id/complex", handler.GenerateComplexID)
-	
+	http.HandleFunc("/api/v1/id/simple", handler.GenerateSimpleID)
+	http.HandleFunc("/api/v1/id/complex", handler.GenerateComplexID)
+
 	log.Printf("ID Service is running on port %s\n", port)
 	log.Printf("On localhost, you can click on these links:")
 	log.Printf("Simple ID: http://localhost:%s/id/simple", port)
