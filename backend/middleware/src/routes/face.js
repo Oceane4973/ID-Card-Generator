@@ -2,6 +2,8 @@ import express from 'express';
 import fetch from 'node-fetch';
 import { PassThrough } from 'stream';
 
+const apiURL = 'http://localhost:5003/api/v1/face';
+
 class FaceRoutes {
     constructor() {
         this.router = express.Router();
@@ -17,7 +19,7 @@ class FaceRoutes {
 
         try {
             const response = await fetch(
-                `http://localhost:5003/api/v1/face/byGenderAndAge?age=${age}&gender=${gender}`
+                `${apiURL}/byGenderAndAge?age=${age}&gender=${gender}`
             );
 
             if (response.ok) {
