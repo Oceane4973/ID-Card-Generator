@@ -8,51 +8,65 @@ const app = express();
 app.use(express.json());
 app.use('/', router);
 
-describe('Nationality API Routes', () => {
-    let mock;
+const mock = new MockAdapter(axios);
 
-    beforeAll(() => {
-        mock = new MockAdapter(axios);
-    });
-
+describe('GET /ByName', () => {
     afterEach(() => {
         mock.reset();
     });
 
-    afterAll(() => {
-        mock.restore();
+    it('should return 400 if name query parameter is missing', async () => {
+        const response = await request(app).get('/ByName');
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('Name query parameter is required');
     });
 
-    describe('GET /ByName', () => {
-        it('should return country_id, nationality, and country_name', async () => {
-            mock.onGet('https://api.nationalize.io?name=John').reply(200, {
-                country: [{ country_id: 'US', probability: 0.99 }]
-            });
-            mock.onGet('https://restcountries.com/v3.1/alpha/US').reply(200, [
-                {
-                    demonyms: { eng: { m: 'American' } }
+    it('should return country data when name is provided', async () => {
+        const mockResponse = {
+            country: [
+                { country_id: 'FR', probability: 1.0 },
+            ]
+        };
+        const mockCountryData = [{
+            demonyms: {
+                eng: {
+                    m: 'French'
                 }
-            ]);
+            }
+        }];
 
-            const response = await request(app)
-                .get('/ByName')
-                .query({ name: 'John' });
+        mock.onGet('https://api.nationalize.io?name=Jean-Eude').reply(200, mockResponse);
+        mock.onGet('https://restcountries.com/v3.1/alpha/FR').reply(200, mockCountryData);
 
-            expect(response.status).toBe(200);
-            expect(response.body).toHaveProperty('country_id', 'US');
-            expect(response.body).toHaveProperty('nationality', 'American');
-            expect(response.body).toHaveProperty('country_name', 'United States of America');
-        });
+        const response = await request(app).get('/ByName?name=Jean-Eude');
+        expect(response.status).toBe(200);
+        expect(response.body).toHaveProperty('country_id', 'FR');
+        expect(response.body).toHaveProperty('nationality', 'French');
+        expect(response.body).toHaveProperty('country_name', 'France');
+    });
 
-        it('should handle errors gracefully', async () => {
-            mock.onGet('https://api.nationalize.io?name=John').networkError();
+    it('should return 500 if there is an error fetching data from Nationalize API', async () => {
+        mock.onGet('https://api.nationalize.io?name=Jean-Eude').reply(500);
 
-            const response = await request(app)
-                .get('/ByName')
-                .query({ name: 'John' });
+        const response = await request(app).get('/ByName?name=Jean-Eude');
+        expect(response.status).toBe(500);
+        expect(response.body.error).toBe('Error fetching data from Nationalize API');
+    });
 
-            expect(response.status).toBe(500);
-            expect(response.body).toHaveProperty('error', 'Error fetching data from Nationalize API');
-        });
+    it('should return "Invalid ISO Code" if country code is invalid', async () => {
+        const mockResponse = {
+            country: [
+                { country_id: 'XX', probability: 1.0 }
+            ]
+        };
+
+        mock.onGet('https://api.nationalize.io?name=Jean-Eude').reply(200, mockResponse);
+        mock.onGet('https://restcountries.com/v3.1/alpha/XX').reply(404);
+
+        const response = await request(app).get('/ByName?name=Jean-Eude');
+        expect(response.status).toBe(200);
+        expect(response.body).toHaveProperty('country_id', 'XX');
+        expect(response.body).toHaveProperty('nationality', 'Error fetching data');
+        expect(response.body).toHaveProperty('country_name', 'Invalid ISO Code');
     });
 });
