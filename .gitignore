@@ -3,3 +3,4 @@ package-lock.json
 update_requirements.sh
 .venv/
 backend/services/faceServices/.env
+__pycache__
