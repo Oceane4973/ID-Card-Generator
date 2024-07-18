@@ -1,6 +1,8 @@
 import express from 'express';
 import fetch from 'node-fetch';
 
+const apiURL = 'http://localhost:5002/api/v1/birthplace';
+
 class BirthplaceRoutes {
   constructor() {
     this.router = express.Router();
@@ -18,7 +20,7 @@ class BirthplaceRoutes {
     }
 
     try {
-      const response = await fetch(`http://localhost:5002/api/v1/birthplace/byCountry?country=${country}`);
+      const response = await fetch(`${apiURL}/byCountry?country=${country}`);
       
       if (!response.ok) {
         if (response.status === 404) {

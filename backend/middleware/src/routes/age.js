@@ -1,7 +1,7 @@
 import express from 'express';
 import fetch from 'node-fetch';
 
-const apiURL = 'http://localhost:5001/api/v1/age/';
+const apiURL = 'http://localhost:5001/api/v1/age';
 const MINIMUM_AGE = 18;
 const MAXIMUM_AGE = 95;
 
@@ -19,7 +19,7 @@ class AgeRoutes {
 
   async generateRandomAge(req, res) {
     try {
-      const response = await fetch(`${apiURL}random`);
+      const response = await fetch(`${apiURL}/random`);
       if (!response.ok) throw new Error('API response was not ok');
       const data = await response.json();
       res.json(data);
@@ -38,7 +38,7 @@ class AgeRoutes {
     }
 
     try {
-      const response = await fetch(`${apiURL}byNameAndOrigin?name=${name}&country_id=${country}`);
+      const response = await fetch(`${apiURL}/byNameAndOrigin?name=${name}&country_id=${country}`);
       if (!response.ok) throw new Error('API response was not ok');
       const data = await response.json();
       res.json(data);
