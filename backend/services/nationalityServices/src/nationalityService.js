@@ -32,16 +32,30 @@ router.get('/ByName', async (req, res) => {
 });
 
 function getRandomCountry(countries) {
+    // Calculer la somme totale des probabilités
+    const totalProbability = countries.reduce((sum, country) => sum + country.probability, 0);
+    
+    // Normaliser les probabilités pour que leur somme soit égale à 1
+    const normalizedCountries = countries.map(country => ({
+        ...country,
+        probability: country.probability / totalProbability
+    }));
+
     const random = Math.random();
     let sum = 0;
 
-    for (const country of countries) {
+    for (const country of normalizedCountries) {
         sum += country.probability;
-        if (random <= sum) {
+        if (random < sum) {
             return country.country_id;
         }
     }
+
+    // En théorie, cette ligne ne devrait jamais être atteinte
+    // car la somme des probabilités normalisées est égale à 1
+    return normalizedCountries[normalizedCountries.length - 1].country_id;
 }
+
 
 function getCountryName(isoCode) {
     const country = iso3166.whereAlpha2(isoCode);
