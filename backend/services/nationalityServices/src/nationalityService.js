@@ -25,6 +25,7 @@ router.get('/ByName', async (req, res) => {
             'country_name': country_name,
         });
     } catch (error) {
+        console.error('Error in /ByName route:', error);
         res.status(500).send({
             error: 'Error fetching data from Nationalize API',
         });
@@ -32,20 +33,43 @@ router.get('/ByName', async (req, res) => {
 });
 
 function getRandomCountry(countries) {
-    const random = Math.random();
-    let sum = 0;
+    try {
+        // Calculer la somme totale des probabilités
+        const totalProbability = countries.reduce((sum, country) => sum + country.probability, 0);
+        
+        // Normaliser les probabilités pour que leur somme soit égale à 1
+        const normalizedCountries = countries.map(country => ({
+            ...country,
+            probability: country.probability / totalProbability
+        }));
 
-    for (const country of countries) {
-        sum += country.probability;
-        if (random <= sum) {
-            return country.country_id;
+        const random = Math.random();
+        let sum = 0;
+
+        for (const country of normalizedCountries) {
+            sum += country.probability;
+            if (random < sum) {
+                return country.country_id;
+            }
         }
+
+        // En théorie, cette ligne ne devrait jamais être atteinte
+        // car la somme des probabilités normalisées est égale à 1
+        return normalizedCountries[normalizedCountries.length - 1].country_id;
+    } catch (error) {
+        console.error('Error in getRandomCountry function:', error);
+        throw new Error('Error calculating random country');
     }
 }
 
 function getCountryName(isoCode) {
-    const country = iso3166.whereAlpha2(isoCode);
-    return country ? country.country : 'Invalid ISO Code';
+    try {
+        const country = iso3166.whereAlpha2(isoCode);
+        return country ? country.country : 'Invalid ISO Code';
+    } catch (error) {
+        console.error('Error in getCountryName function:', error);
+        return 'Invalid ISO Code';
+    }
 }
 
 async function getNationality(isoCode) {
@@ -64,4 +88,3 @@ async function getNationality(isoCode) {
 }
 
 export { router };
-
