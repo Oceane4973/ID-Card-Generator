@@ -28,14 +28,17 @@ def generate_face():
     response = requests.get(url, headers=headers, params=params)
     
     if response.status_code == 200:
-        image = imageio.v2.imread(BytesIO(response.content))
-        img_byte_arr = BytesIO()
-        imageio.imwrite(img_byte_arr, image, format='jpeg')
-        img_byte_arr.seek(0)
-        return send_file(img_byte_arr, mimetype='image/jpeg')
+        try:
+            image = imageio.v2.imread(BytesIO(response.content))
+            img_byte_arr = BytesIO()
+            imageio.imwrite(img_byte_arr, image, format='jpeg')
+            img_byte_arr.seek(0)
+            return send_file(img_byte_arr, mimetype='image/jpeg')
+        except Exception as e:
+            app.logger.error(f"Failed to process image: {str(e)}")
+            return f"Failed to process image: {str(e)}", 500
     else:
         return f"Failed to retrieve image: {response.content}", 500
-
 
 if __name__ == '__main__':
     app.run(port=PORT)
