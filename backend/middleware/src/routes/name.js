@@ -26,15 +26,12 @@ class NameRoutes {
   }
 
   async generateNameByGender(req, res) {
-    const { name, gender } = req.query;
-    if (!name) {
-      return res.status(400).json({ error: 'Name query parameter is required' });
-    }
+    const { gender } = req.query;
     if (!gender) {
       return res.status(400).json({ error: 'Gender query parameter is required' });
     }
     try {
-      const response = await fetch(`${apiURL}/byGender?name=${name}&gender=${gender}`);
+      const response = await fetch(`${apiURL}/byGender?gender=${gender}`);
       if (!response.ok) throw new Error('API response was not ok');
       const data = await response.json();
       res.json(data);

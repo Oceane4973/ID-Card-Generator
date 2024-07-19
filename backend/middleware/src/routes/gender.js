@@ -30,7 +30,7 @@ export async function determineGenderByNameAndOrigin(req, res) {
   }
 
   try {
-    const response = await fetch(`${apiURL}/byNameAndOrigin?name=${name}&country_id=${country}`);
+    const response = await fetch(`${apiURL}/byNameAndOrigin?name=${name}&country=${country}`);
     if (!response.ok) throw new Error('API response was not ok');
     const data = await response.json();
     res.json(data);

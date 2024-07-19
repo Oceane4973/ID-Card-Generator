@@ -26,7 +26,7 @@ export const generateAgeByNameOrigin = async (req, res) => {
   }
 
   try {
-    const response = await fetch(`${apiURL}/byNameAndOrigin?name=${name}&country_id=${country}`);
+    const response = await fetch(`${apiURL}/byNameAndOrigin?name=${name}&country=${country}`);
     if (!response.ok) throw new Error('API response was not ok');
     const data = await response.json();
     res.json(data);
@@ -36,7 +36,7 @@ export const generateAgeByNameOrigin = async (req, res) => {
 };
 
 export const generateAgeByRange = async (req, res) => {
-  const { minAge, maxAge } = req.body;
+  const { minAge, maxAge } = req.query;
   if (!minAge) {
     return res.status(400).json({ error: 'Minimum query parameter is required' });
   } else if (minAge < MINIMUM_AGE) {
@@ -49,11 +49,7 @@ export const generateAgeByRange = async (req, res) => {
   }
 
   try {
-    const response = await fetch(`${apiURL}/range`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ minAge, maxAge })
-    });
+    const response = await fetch(`${apiURL}/range?minAge=${minAge}&maxAge=${maxAge}`);
     if (!response.ok) throw new Error('API response was not ok');
     const data = await response.json();
     res.json(data);
@@ -71,7 +67,7 @@ class AgeRoutes {
   initializeRoutes() {
     this.router.get('/random', generateRandomAge);
     this.router.get('/byNameAndOrigin', generateAgeByNameOrigin);
-    this.router.post('/range', generateAgeByRange);
+    this.router.get('/range', generateAgeByRange);
   }
 }
 
