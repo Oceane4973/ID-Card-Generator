@@ -8,7 +8,7 @@ app.use(express.json());
 app.use('/', router);
 fetchMock.enableMocks();
 
-describe('Genderize API Routes', () => {
+describe('Name API Routes', () => {
 
     beforeEach(() => {
         fetch.resetMocks();
