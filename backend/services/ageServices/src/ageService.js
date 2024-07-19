@@ -24,15 +24,22 @@ router.get('/byNameAndOrigin', async (req, res) => {
             .send({ error: 'Country query parameter is required' });
     }
     let APIbyNameAndOrigin = apiURL + "?name=" + req.query.name + "&country_id=" + req.query.country;
-    let returnValue = await fetch(APIbyNameAndOrigin)
-    .then(response => {
-        if(!response.ok) throw new Error('API response was not ok');
-        return response.json();
-    })
-    .then(value => {
-        return apiResponseConstructor(generateNormalRandom(value.age));
-    });
-    res.send(returnValue);
+    try {
+        let returnValue = await fetch(APIbyNameAndOrigin)
+        .then(response => {
+            if(!response.ok) throw new Error('API response was not ok');
+            return response.json();
+        })
+        .then(value => {
+            return apiResponseConstructor(generateNormalRandom(value.age));
+        });
+        if(returnValue==null || returnValue == undefined || returnValue == null) throw new Error('Name or country does not exist !');
+        res.send(returnValue);
+    } catch(error) {
+        return res
+            .status(400)
+            .send({ error: error.message });
+    }
 });
 
 router.get('/range', async (req, res) => {
@@ -40,24 +47,24 @@ router.get('/range', async (req, res) => {
         return res
             .status(400)
             .send({ error: 'minAge query parameter is required' });
-    } else if(req.query.minAge < MINIMUM_AGE) {
+    } else if(req.query.minAge < MINIMUM_AGE || req.query.minAge > MAXIMUM_AGE) {
         return res
             .status(400)
-            .send({ error: 'minAge can\'t be under 18' });
+            .send({ error: 'minAge can not be under 18 or over 85' });
     }
     if(!req.query.maxAge) {
         return res
             .status(400)
             .send({ error: 'maxAge query parameter is required' });
-    } else if(req.query.maxAge > MAXIMUM_AGE + 1) {
+    } else if(req.query.maxAge > MAXIMUM_AGE || req.query.maxAge < MINIMUM_AGE) {
         return res
             .status(400)
-            .send({ error: 'maxAge can\'t be over 85' });
+            .send({ error: 'maxAge can not be over 85 or under 18' });
     }
     if(req.query.minAge >= req.query.maxAge || req.query.maxAge <= req.query.minAge) {
         return res
             .status(400)
-            .send({ error: 'maxAge can\'t be under minAge et vice versa !' });
+            .send({ error: 'maxAge can not be under minAge and vice versa !' });
     }
     const min = req.query.minAge;
     const max = req.query.maxAge;
@@ -83,4 +90,4 @@ const apiResponseConstructor = (age) => {
     return result;
 }
 
-export { router };
+export { router, apiURL };
