@@ -1,7 +1,32 @@
 import express from 'express';
-import axios from 'axios';
-import fs from 'fs';
-import path from 'path';
+import fetch from 'node-fetch';
+import { PassThrough } from 'stream';
+
+const apiURL = 'http://localhost:5003/api/v1/face';
+
+export async function generateFaceByGenderAndAge(req, res) {
+    const { gender, age } = req.query;
+
+    try {
+        const response = await fetch(
+            `${apiURL}/byGenderAndAge?age=${age}&gender=${gender}`
+        );
+
+        if (response.ok) {
+            const contentType = response.headers.get('content-type');
+            res.set('Content-Type', contentType);
+
+            const bodyStream = new PassThrough();
+            response.body.pipe(bodyStream);
+            bodyStream.pipe(res);
+        } else {
+            const errorText = await response.text();
+            res.status(500).send(`Failed to retrieve image: ${errorText}`);
+        }
+    } catch (error) {
+        res.status(500).send(`Error: ${error.message}`);
+    }
+}
 
 class FaceRoutes {
     constructor() {
@@ -10,39 +35,7 @@ class FaceRoutes {
     }
 
     initializeRoutes() {
-        this.router.get('/byGenderAndAge', this.generateFaceByGenderAndAge);
-    }
-
-    async generateFaceByGenderAndAge(req, res) {
-        const { gender, age } = req.query;
-
-        try {
-            const response = await axios.get(
-                `http://localhost:5003/api/v1/face/byGenderAndAge`,
-                { params: { age, gender }, responseType: 'arraybuffer' }
-            );
-
-            if (response.status === 200) {
-                const contentType = response.headers['content-type'];
-                const extension = contentType.split('/')[1];
-                const tempFileName = `temp.${extension}`;
-
-                fs.writeFileSync(tempFileName, response.data);
-
-                // Utilisez un chemin relatif correct pour envoyer le fichier
-                res.sendFile(path.resolve(tempFileName), {}, (err) => {
-                    if (err) {
-                        console.error('Error sending file:', err);
-                    }
-                    // Nettoyage du fichier temporaire après l'envoi
-                    fs.unlinkSync(tempFileName);
-                });
-            } else {
-                res.status(500).send(`Failed to retrieve image: ${response.data}`);
-            }
-        } catch (error) {
-            res.status(500).send(`Error: ${error.message}`);
-        }
+        this.router.get('/byGenderAndAge', generateFaceByGenderAndAge);
     }
 }
 

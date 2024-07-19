@@ -125,7 +125,7 @@ async function getBirthPlace(nationality) {
 		const response = await axios.get(
 			`${baseURL}/birthplace/byCountry?country=${nationality.country_id}`
 		);
-		return response.data.birthplace;
+		return `${response.data.birthplace} (${nationality.country_name})`;
 	} catch (error) {
 		console.error(
 			'Erreur lors de la récupération du lieu de naissance aléatoire:',
